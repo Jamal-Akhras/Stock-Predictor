@@ -11,10 +11,10 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Dense,Dropout, LSTM
 
-company = "GLD"
+company = "GLD" #can be any stock on yahoo finance
 
 start = dt.datetime(2012,1,1)
-end = dt.datetime.now()
+end = dt.datetime.(2020,1,1)
 
 yf.pdr_override()
 
@@ -23,7 +23,7 @@ data = pdr.get_data_yahoo(company, start, end)
 scaler = MinMaxScaler(feature_range=(0,1))
 scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
-prediction_days = 100
+prediction_days = 150
 
 x_train = []
 y_train = []
@@ -51,7 +51,7 @@ model.compile(optimizer = "adam" , loss = "mean_squared_error")
 model.fit(x_train, y_train, epochs = 24, batch_size = 36)
 
 test_start = dt.datetime(2020,1,1)
-test_end = dt.datetime(2030,1,1)
+test_end = dt.datetime.now()
 
 test_data = pdr.get_data_yahoo(company, test_start, test_end)
 
